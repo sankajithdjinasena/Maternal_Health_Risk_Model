@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maternal Health Risk Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-pink-50 text-gray-900">
+  <div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+    <header class="mb-6 text-center">
+      <h1 class="text-3xl font-bold text-pink-700">Maternal Health Risk Predictor</h1>
+      <p class="text-sm text-gray-600 mt-2">Analyze and predict maternal health risk levels during pregnancy using IoT-based monitoring data.</p>
+    </header>
+
+    <section class="mb-6">
+      <p class="text-gray-700 leading-relaxed">
+        This application leverages data collected from hospitals, community clinics, and maternal healthcare centers to evaluate maternal health conditions during pregnancy. The dataset includes essential indicators such as blood pressure, blood glucose levels, heart rate, and age to predict risk intensity levels. By using machine learning, healthcare professionals and patients can identify early warning signs, enabling timely medical interventions and improved maternal care.
+      </p>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-3">Enter Patient Details</h2>
+      <form action="/predict" method="POST" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="Age" class="block text-sm font-medium">Age</label>
+            <input type="number" id="Age" name="Age" min="0" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label for="SystolicBP" class="block text-sm font-medium">Systolic BP</label>
+            <input type="number" id="SystolicBP" name="SystolicBP" min="0" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label for="DiastolicBP" class="block text-sm font-medium">Diastolic BP</label>
+            <input type="number" id="DiastolicBP" name="DiastolicBP" min="0" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label for="BS" class="block text-sm font-medium">Blood Sugar (mmol/L)</label>
+            <input type="number" id="BS" name="BS" step="0.01" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label for="BodyTemp" class="block text-sm font-medium">Body Temperature (°C)</label>
+            <input type="number" id="BodyTemp" name="BodyTemp" step="0.1" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label for="HeartRate" class="block text-sm font-medium">Heart Rate (bpm)</label>
+            <input type="number" id="HeartRate" name="HeartRate" min="0" required class="w-full border border-gray-300 rounded-xl px-3 py-2">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-pink-600 text-white rounded-xl py-2 font-semibold hover:bg-pink-700">Predict Risk Level</button>
+      </form>
+    </section>
+
+    {% if prediction %}
+      <div class="p-4 mb-4 bg-green-100 text-green-800 rounded-xl">
+        <p class="font-medium">Prediction: {{ prediction }}</p>
+      </div>
+    {% elif error %}
+      <div class="p-4 mb-4 bg-red-100 text-red-800 rounded-xl">
+        <p class="font-medium">Error: {{ error }}</p>
+      </div>
+    {% endif %}
+
+    <footer class="text-sm text-gray-500 mt-8 text-center">
+      <p>Dataset Reference: Ahmed M. et al., IoT-based Risk Level Prediction Model for Maternal Health Care (2020).</p>
+    </footer>
+  </div>
+</body>
+</html>
